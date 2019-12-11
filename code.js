@@ -3,6 +3,8 @@ let sliderLenta = slider.find(".slider-lenta")
 let sliderItems = slider.find(".slider-lenta-item.real")
 sliderLenta.css('width', (sliderItems.length+2) * 100 + "%")
 let sliderBullets = slider.find('.slider-bullets div')
+let arrowLeft = slider.find('.slider-arrow-left i')
+let arrowRight = slider.find('.slider-arrow-right i')
 
 // MVC
 // Model
@@ -78,13 +80,28 @@ function changeBullets(index) {
     sliderBullets[index].style.backgroundColor = 'white'
 }
 
-document.addEventListener("keypress", (event) => {
+$(document).keydown(function(e) {
 
-    if(event.code == "ArrowLeft"){
-        slideLeft()
+    if(e.keyCode == 37){
+        arrowLeft.click()
     }
-    else if(event.code == "ArrowRight"){
-        slideRight()
+    else if(e.keyCode == 39){
+        arrowRight.click()
+    }
+    else if(e.keyCode == 49){
+        sliderBullets[0].click()
+    }
+    else if(e.keyCode == 50){
+        sliderBullets[1].click()
+    }
+    else if(e.keyCode == 51){
+        sliderBullets[2].click()
+    }
+    else if(e.keyCode == 52){
+        sliderBullets[3].click()
+    }
+    else if(e.keyCode == 53){
+        sliderBullets[4].click()
     }
 })
 
