@@ -12,7 +12,7 @@ let showIndex = 0
 
 changeBullets(showIndex)
 
-$(document).keydown(function(e) {
+$(document).keyup(function(e) {
 
     if(e.keyCode == 37){
         arrowLeft.click()
@@ -83,7 +83,7 @@ arrowRight.click(function slideRight() {
     if(sliderLenta.hasClass("animated")){
         return
     }
-    
+
     sliderLenta.addClass('animated')
 
     if(showIndex >= sliderItems.length - 1){
