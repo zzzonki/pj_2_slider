@@ -12,7 +12,42 @@ let showIndex = 0
 
 changeBullets(showIndex)
 
-slider.find('.slider-arrow-left i').click(function slideLeft(){
+$(document).keydown(function(e) {
+
+    if(e.keyCode == 37){
+        arrowLeft.click()
+        // changeBullets(showIndex)
+        // return
+    }
+    else if(e.keyCode == 39){
+        console.log(showIndex)
+        if(showIndex >= showIndex.length - 1){
+            showIndex = 0
+            arrowRight.click()
+        } else{
+            arrowRight.click()
+        }
+        // changeBullets(showIndex)
+        // return
+    }
+    else if(e.keyCode == 49){
+        sliderBullets[0].click()
+    }
+    else if(e.keyCode == 50){
+        sliderBullets[1].click()
+    }
+    else if(e.keyCode == 51){
+        sliderBullets[2].click()
+    }
+    else if(e.keyCode == 52){
+        sliderBullets[3].click()
+    }
+    else if(e.keyCode == 53){
+        sliderBullets[4].click()
+    }
+})
+
+arrowLeft.click(function slideLeft() {
     // Обрывает выполнение функции во время анимции
     // Таким образом нельзя мотать слишком быстро
     if(sliderLenta.hasClass("animated")){
@@ -43,7 +78,12 @@ slider.find('.slider-arrow-left i').click(function slideLeft(){
     }
 })
 
-slider.find('.slider-arrow-right i').click(function slideRight(){
+arrowRight.click(function slideRight() {
+    // Все заработало, после добавления следующих трех строчек
+    if(sliderLenta.hasClass("animated")){
+        return
+    }
+    
     sliderLenta.addClass('animated')
 
     if(showIndex >= sliderItems.length - 1){
@@ -56,9 +96,9 @@ slider.find('.slider-arrow-right i').click(function slideRight(){
             sliderLenta.removeClass('animated')
             changeBullets(showIndex)
         })
-        if(sliderLenta.hasClass("animated")){
-            return
-        }
+        // if(sliderLenta.hasClass("animated")){
+        //     return
+        // }
     } else{
         showIndex++
         sliderLenta.animate({
@@ -67,9 +107,9 @@ slider.find('.slider-arrow-right i').click(function slideRight(){
             sliderLenta.removeClass('animated')
             changeBullets(showIndex)
         })
-        if(sliderLenta.hasClass("animated")){
-            return
-        }
+        // if(sliderLenta.hasClass("animated")){
+        //     return
+        // }
     }
 })
 
@@ -80,46 +120,23 @@ function changeBullets(index) {
     sliderBullets[index].style.backgroundColor = 'white'
 }
 
-$(document).keydown(function(e) {
 
-    if(e.keyCode == 37){
-        arrowLeft.click()
-    }
-    else if(e.keyCode == 39){
-        arrowRight.click()
-    }
-    else if(e.keyCode == 49){
-        sliderBullets[0].click()
-    }
-    else if(e.keyCode == 50){
-        sliderBullets[1].click()
-    }
-    else if(e.keyCode == 51){
-        sliderBullets[2].click()
-    }
-    else if(e.keyCode == 52){
-        sliderBullets[3].click()
-    }
-    else if(e.keyCode == 53){
-        sliderBullets[4].click()
-    }
-})
+for (let i = 0; i < sliderBullets.length; i++) {
+    sliderBullets[i].onclick = function(){
+        console.log(this.id)
+        showIndex = this.id
+        showIndex++
+        console.log(showIndex)
+        sliderLenta.animate({
+            left: -100 * (showIndex)+"%"
+        },1500, function(){
+            sliderLenta.removeClass('animated')
+            changeBullets(showIndex)
+        })
+        if(sliderLenta.hasClass("animated")){
+            return
+        }
+        showIndex--
+    }    
+}
 
-    for (let i = 0; i < sliderBullets.length; i++) {
-        sliderBullets[i].onclick = function(){
-            console.log(this.id)
-            showIndex = this.id
-            showIndex++
-            console.log(showIndex)
-            sliderLenta.animate({
-                left: -100 * (showIndex)+"%"
-            },1500, function(){
-                sliderLenta.removeClass('animated')
-                changeBullets(showIndex)
-            })
-            if(sliderLenta.hasClass("animated")){
-                return
-            }
-            showIndex--
-        }    
-    }
